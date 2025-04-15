@@ -1,0 +1,44 @@
+import wollok.game.*
+import example.auto
+
+program PepitaGame {
+	game.title("Pepita")
+	game.height(40)
+	game.width(40)
+	game.boardGround("image.png")
+	
+	//add assets in asset folder, for example, for the background
+	// game.boardGround("fondo2.jpg")
+	//
+	game.showAttributes(auto) //Debug
+	game.addVisualCharacter(auto)
+	
+	//movimiento
+	keyboard.up().onPressDo(
+		{ 
+			auto.mover(auto.position().up(1))
+			auto.cambiarImagen("carup.png")
+		}
+	)
+	keyboard.down().onPressDo(
+		{ 
+			auto.mover(auto.position().down(1))
+			auto.cambiarImagen("cardown.png")
+		}
+	)
+	keyboard.left().onPressDo(
+		{ 
+			auto.mover(auto.position().left(1))
+			auto.cambiarImagen("carleft.png")
+		}
+	)
+	keyboard.right().onPressDo(
+		{ 
+			auto.mover(auto.position().right(1))
+			auto.cambiarImagen("carright.png")
+		}
+	)
+	keyboard.r().onPressDo({ auto.mover(game.origin()) })
+	
+	game.start()
+}
