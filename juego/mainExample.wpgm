@@ -1,44 +1,62 @@
 import wollok.game.*
-import example.auto
+import example.cabeza
+import example.cuerpo
+import example.cola
+import example.manzana
 
 program PepitaGame {
 	game.title("Pepita")
-	game.height(40)
-	game.width(40)
-	game.boardGround("image.png")
+	game.height(20)
+	game.width(20)
 	
 	//add assets in asset folder, for example, for the background
 	// game.boardGround("fondo2.jpg")
 	//
-	game.showAttributes(auto) //Debug
-	game.addVisualCharacter(auto)
-	
+	game.showAttributes(cabeza)
+	game.showAttributes(cuerpo) //Debug
+	game.addVisualCharacter(cabeza)
+	game.addVisual(cuerpo)
+	game.addVisual(manzana)
+	game.addVisual(cola)
+	game.onCollideDo(cabeza, { manzana =>
+		manzana.mover()
+		
+	})
+
 	//movimiento
 	keyboard.up().onPressDo(
 		{ 
-			auto.mover(auto.position().up(1))
-			auto.cambiarImagen("carup.png")
+			cabeza.cambiarImagen("head_up.png")
+			cuerpo.mover(cabeza.position().down(1))
+			cola.cambiarImagen("tail_down.png")
+			cola.mover(cuerpo.position().down(1))
 		}
 	)
 	keyboard.down().onPressDo(
 		{ 
-			auto.mover(auto.position().down(1))
-			auto.cambiarImagen("cardown.png")
+			cabeza.cambiarImagen("head_down.png")
+			cuerpo.mover(cabeza.position().up(1))
+			cola.cambiarImagen("tail_up.png")
+			cola.mover(cuerpo.position().up(1))
 		}
 	)
 	keyboard.left().onPressDo(
 		{ 
-			auto.mover(auto.position().left(1))
-			auto.cambiarImagen("carleft.png")
+			cabeza.cambiarImagen("head_left.png")
+			cuerpo.mover(cabeza.position().right(1))
+			cola.cambiarImagen("tail_right.png")
+			cola.mover(cuerpo.position().right(1))
 		}
 	)
 	keyboard.right().onPressDo(
 		{ 
-			auto.mover(auto.position().right(1))
-			auto.cambiarImagen("carright.png")
+			cabeza.cambiarImagen("head_right.png")
+			cuerpo.mover(cabeza.position().left(1))
+			cola.cambiarImagen("tail_left.png")
+			cola.mover(cuerpo.position().left(1))
 		}
 	)
-	keyboard.r().onPressDo({ auto.mover(game.origin()) })
+	keyboard.r().onPressDo({ cabeza.mover(game.origin()) })
 	
 	game.start()
 }
